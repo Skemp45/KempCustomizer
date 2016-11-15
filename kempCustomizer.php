@@ -26,6 +26,34 @@ define( 'KempCust_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'KempCust_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 // Blocks direct access to plugin
 defined( 'ABSPATH' ) or die( "Access Forbidden" );
-include( plugin_dir_path( __FILE__ ) . 'custom/functions.php');
-wp_enqueue_style( 'custom-css', plugins_url( 'custom/style.css', __FILE__ ) );
-wp_enqueue_script( 'custom-js', plugins_url( 'custom/custom.js', __FILE__ ), array( 'jquery' ) );
+  final class Kemp_customizer {
+    /**
+	 * Set up the plugin
+	 */
+	public function __construct() {
+    add_action( 'init', array( $this, 'Kemp_customizer_setup' ), -1 );
+    include( plugin_dir_path( __FILE__ ) . 'custom/functions.php');
+	}
+
+
+    public function KempCSS() {
+      wp_enqueue_style( 'custom-css', plugins_url( 'custom/style.css', __FILE__ ) );
+    }
+
+    public function KempJS() {
+      wp_enqueue_script( 'custom-js', plugins_url( 'custom/custom.js', __FILE__ ), array( 'jquery' ) );
+    }
+
+    public function Kemp_customizer_setup() {
+  		add_action( 'wp_enqueue_scripts', array( $this, 'KempCSS' ), 999 );
+  		add_action( 'wp_enqueue_scripts', array( $this, 'KempJS' ) );  add_action( 'init', array( $this, 'bookshop_theme_customizer_setup' ), -1 );
+  	}
+  }
+
+  function Kemp_customizer_main() {
+	new Kemp_customizer();
+}
+/**
+ * Initialise the plugin
+ */
+add_action( 'plugins_loaded', 'Kemp_customizer_main' );
