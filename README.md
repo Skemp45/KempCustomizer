@@ -3,3 +3,6 @@ This WordPress plugin gives you a safe place to add CSS, Javascript, and PHP cod
 
 
 Just install this plugin and edit the files within this plugin with your code changes.
+
+#WordPress URL
+https://wordpress.org/plugins/kemp-customizer/
